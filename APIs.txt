@@ -1,0 +1,95 @@
+http://moaaz66altabaa-001-site1.gtempurl.com/api/register      --POST--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+
+Body:
+{
+    "name" : "Moaaz",
+    "email" : "moaaz@gmail.com",
+    "mobile" : "0935644682",
+    "password" : "123123123",
+    "password_confirmation" : "123123123"
+}
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/login        --POST--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+
+Body:
+{
+    "email" : "moaaz@gmail.com",
+    "password" : "123123123"
+}
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/index        --GET--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+
+Body: فاضي 
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/show/العنصريلي بدك تعرضو id       --GET--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+
+Body: فاضي 
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/store        --POST--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+Authorization:Bearer هون بتحط الاكسس توكن يلي رجعلك ياها اللوغ ان
+
+Body:
+{
+    "title" : "How To Kick Mardini out",
+    "body" : "maan it is not easy but I did it"
+}
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/update/العنصريلي بدك تعدلو id          --PUT--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+Authorization:Bearer هون بتحط الاكسس توكن يلي رجعلك ياها اللوغ ان
+
+Body:
+{
+    "title" : "How To Kick Mardini out",
+    "body" : "maan it is not easy but I did it"
+}
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/delete/العنصريلي بدك تحذفو id          --DELETE--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+Authorization:Bearer هون بتحط الاكسس توكن يلي رجعلك ياها اللوغ ان
+
+Body: فاضي
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/profile         --POST--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+Authorization:Bearer هون بتحط الاكسس توكن يلي رجعلك ياها اللوغ ان
+
+Body: فاضي
+---------------------------------------------------------------------------
+http://moaaz66altabaa-001-site1.gtempurl.com/api/logout         --POST--
+
+Headers:
+Accept:application/json
+Content-Type:application/json
+Authorization:Bearer هون بتحط الاكسس توكن يلي رجعلك ياها اللوغ ان
+
+Body: فاضي
