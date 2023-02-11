@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 27, 2023 at 11:07 PM
+-- Generation Time: Feb 11, 2023 at 02:32 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -37,15 +37,6 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `user_id`, `expert_id`, `from`, `to`, `created_at`, `updated_at`) VALUES
-(4, 1, 13, '2023-12-10 10:30:00', '2023-12-10 11:30:00', '2023-01-08 11:13:23', '2023-01-08 11:13:23'),
-(5, 1, 13, '2023-12-10 14:30:00', '2023-12-10 15:30:00', '2023-01-08 11:57:38', '2023-01-08 11:57:38'),
-(6, 1, 13, '2023-12-10 13:30:00', '2023-12-10 14:30:00', '2023-01-08 11:59:57', '2023-01-08 11:59:57');
-
 -- --------------------------------------------------------
 
 --
@@ -55,24 +46,36 @@ INSERT INTO `appointments` (`id`, `user_id`, `expert_id`, `from`, `to`, `created
 CREATE TABLE `categories` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `categoryName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `imagePath` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `imagePath` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `categories`
 --
 
-INSERT INTO `categories` (`id`, `categoryName`, `imagePath`, `created_at`, `updated_at`) VALUES
-(1, 'C++ ', 'assets/categories_image/c.png', '2022-12-21 19:11:15', NULL),
-(2, 'Java ', 'assets/categories_image/java.png', '2022-12-22 10:16:48', NULL),
-(3, 'Laravel ', 'assets/categories_image/laravel.png', '2022-12-22 10:17:04', NULL),
-(4, 'Python', 'assets/categories_image/python.png', '2022-12-22 10:17:34', NULL),
-(5, 'CSS', 'assets/categories_image/css.png', '2023-01-08 12:57:57', NULL),
-(6, 'React', 'assets/categories_image/react.png', '2023-01-08 12:58:45', NULL),
-(7, 'PHP', 'assets/categories_image/php.png', '2023-01-08 12:59:00', NULL),
-(8, 'MySQL', 'assets/categories_image/mySql.png', '2023-01-08 12:59:12', NULL);
+INSERT INTO `categories` (`id`, `categoryName`, `imagePath`) VALUES
+(1, 'Programming', NULL),
+(2, 'Health', NULL),
+(3, 'Engineering', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client_wallets`
+--
+
+CREATE TABLE `client_wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `total` double(8,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `client_wallets`
+--
+
+INSERT INTO `client_wallets` (`id`, `user_id`, `total`) VALUES
+(1, 1, 10000.00);
 
 -- --------------------------------------------------------
 
@@ -84,20 +87,8 @@ CREATE TABLE `experiences` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `expert_id` bigint(20) UNSIGNED NOT NULL,
   `experienceName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `experienceBody` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
+  `experienceBody` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `experiences`
---
-
-INSERT INTO `experiences` (`id`, `expert_id`, `experienceName`, `experienceBody`, `created_at`, `updated_at`) VALUES
-(12, 13, 'IT Engineering', 'daf', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(13, 14, 'sdad', 'daf', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(14, 15, 'sdad', 'daf', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(15, 16, 'sdad', 'daf', '2022-12-23 10:10:30', '2022-12-23 10:10:30');
 
 -- --------------------------------------------------------
 
@@ -107,24 +98,33 @@ INSERT INTO `experiences` (`id`, `expert_id`, `experienceName`, `experienceBody`
 
 CREATE TABLE `experts` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
+  `local` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
+  `userName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagePath` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `category_id` bigint(20) UNSIGNED NOT NULL,
   `expertDescription` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `hourPrice` double(8,2) NOT NULL,
   `rate` double(8,2) NOT NULL DEFAULT 0.00,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email_verified_at` timestamp NULL DEFAULT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `experts`
+-- Table structure for table `expert_wallets`
 --
 
-INSERT INTO `experts` (`id`, `user_id`, `category_id`, `expertDescription`, `hourPrice`, `rate`, `created_at`, `updated_at`) VALUES
-(13, 15, 1, 'my name is Moaaz', 100.00, 1.00, '2022-12-23 10:08:02', '2023-01-08 11:57:05'),
-(14, 16, 2, 'my name is Mahmoud', 50.00, 0.00, '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(15, 17, 1, 'my name is Ammar', 100.00, 0.00, '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(16, 18, 1, 'my name is Dania', 100.00, 0.00, '2022-12-23 10:10:30', '2022-12-23 10:10:30');
+CREATE TABLE `expert_wallets` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `expert_id` bigint(20) UNSIGNED NOT NULL,
+  `total` double(8,2) NOT NULL DEFAULT 0.00
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -157,16 +157,6 @@ CREATE TABLE `favourites` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `favourites`
---
-
-INSERT INTO `favourites` (`id`, `user_id`, `expert_id`, `category_id`, `created_at`, `updated_at`) VALUES
-(3, 1, 14, 2, '2022-12-24 16:01:44', '2022-12-24 16:01:44'),
-(5, 1, 15, 1, '2022-12-24 16:01:51', '2022-12-24 16:01:51'),
-(6, 1, 16, 1, '2022-12-24 16:01:52', '2022-12-24 16:01:52'),
-(7, 1, 13, 1, '2023-01-08 11:57:01', '2023-01-08 11:57:01');
-
 -- --------------------------------------------------------
 
 --
@@ -181,16 +171,6 @@ CREATE TABLE `messages` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `messages`
---
-
-INSERT INTO `messages` (`id`, `senderId`, `receiverId`, `body`, `created_at`, `updated_at`) VALUES
-(3, 1, 15, 'sadsadas', '2022-12-23 10:12:58', '2022-12-23 10:12:58'),
-(4, 15, 1, 'مرحبا ', '2022-12-23 12:16:32', NULL),
-(5, 1, 15, 'اهلا', '2022-12-23 11:14:52', '2022-12-23 11:14:52'),
-(6, 15, 1, 'test', '2023-01-08 12:01:58', '2023-01-08 12:01:58');
 
 -- --------------------------------------------------------
 
@@ -211,165 +191,19 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2016_06_01_000001_create_oauth_auth_codes_table', 1),
-(4, '2016_06_01_000002_create_oauth_access_tokens_table', 1),
-(5, '2016_06_01_000003_create_oauth_refresh_tokens_table', 1),
-(6, '2016_06_01_000004_create_oauth_clients_table', 1),
-(7, '2016_06_01_000005_create_oauth_personal_access_clients_table', 1),
-(8, '2019_08_19_000000_create_failed_jobs_table', 1),
-(9, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(10, '2022_11_29_114029_create_categories_table', 1),
-(11, '2022_11_29_114030_create_experts_table', 1),
-(12, '2022_11_29_121211_create_experiences_table', 1),
-(13, '2022_11_29_123549_create_schedules_table', 1),
-(14, '2022_11_30_141742_create_favourites_table', 1),
-(15, '2022_11_30_174805_create_ratings_table', 1),
-(16, '2022_12_04_093847_create_appointments_table', 1),
-(17, '2022_12_21_164743_create_messages_table', 1),
-(19, '2022_12_22_094335_create_wallets_table', 2);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oauth_access_tokens`
---
-
-CREATE TABLE `oauth_access_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `client_id` bigint(20) UNSIGNED NOT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL,
-  `expires_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `oauth_access_tokens`
---
-
-INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
-('02f994846bf84def62c7638b5513ce0bbea920fd86c8c2c5c9b23900cebb0b487619a30668bf01a5', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:32:08', '2022-12-22 08:35:49', '2023-12-22 10:32:08'),
-('0f4d6412ab432e73884067a25a19ae7a28cd9a858b7f3b77c3767c754fb7c804c85cd592647b2bad', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:17:42', '2022-12-24 22:17:42', '2023-12-25 00:17:42'),
-('12fd7f6d9d3e0a2e85b12016c1dd59056d3cb2e8a21eb176b6530bcfc15c8db34741ef546ca08fad', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:51:39', '2022-12-22 08:52:11', '2023-12-22 10:51:39'),
-('15e588f8959a713b6ee13b7d24ea119884abde562181def233a24c93df73f5d879496761755f3223', 1, 1, 'auth_token', '[]', 1, '2022-12-22 07:40:06', '2022-12-22 07:41:28', '2023-12-22 09:40:06'),
-('16852d1aac57db70a75638c2dc22e3fa70409b5d2e439f10ac51024d4a68fac3d09b591515f831b4', 1, 1, 'auth_token', '[]', 0, '2023-01-06 20:47:21', '2023-01-06 20:47:21', '2024-01-06 22:47:21'),
-('18da7c7de26ff3e174f80d20b3baf5c996d8823e0d5e9ede84386d7becf06381bdfb81abadf4292c', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:16:26', '2022-12-24 22:16:26', '2023-12-25 00:16:26'),
-('19423e3e60d7def94c268cbb8f16777eb89e1e9dbf61dbfc77b7822f84e42b2a4cdb68725e31e9f3', 1, 1, 'auth_token', '[]', 1, '2023-01-08 11:59:45', '2023-01-08 12:00:03', '2024-01-08 13:59:45'),
-('24687a828709cfda0bc3800aa99408d8983b6e776a2f9ce60ea8b5edc3795fa5cc1a9cd9849d3c6a', 1, 1, 'auth_token', '[]', 1, '2023-01-08 11:10:17', '2023-01-08 11:14:05', '2024-01-08 13:10:17'),
-('24dbd1395541f588f77c3d96d615493bdca5f188afc3c12631623bb99ca3c43e07240709c927bfa0', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:20:04', '2022-12-24 22:20:04', '2023-12-25 00:20:04'),
-('2582fe436f082c9721bd15b4f23dafb715dc3559ae06eeff3e30ddd6804f0dba2a5307546edcc1a2', 1, 1, 'auth_token', '[]', 0, '2022-12-24 15:54:50', '2022-12-24 15:54:50', '2023-12-24 17:54:50'),
-('2d368136c1ae62c5e8c0292a15470cf7a1ca30e00d9c8a5aa87b76dbbddcf70ec896a8fe954b9231', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:20:08', '2022-12-24 22:20:08', '2023-12-25 00:20:08'),
-('3181f5491198cd5ba7530e31750155ce537b0c532021ad0d80dc7b6fb83cbe6391c84af4c6bfa625', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:15:16', '2022-12-24 22:15:16', '2023-12-25 00:15:16'),
-('33fbe890f97bff5c136e38055178a9561879fbef06ff13c8cbf839f141fd68a159a2a71f69233beb', 1, 1, 'auth_token', '[]', 1, '2023-01-08 11:54:46', '2023-01-08 11:54:50', '2024-01-08 13:54:46'),
-('34eec9c129f92e2aeafc7abea2b85b515b9eddc79d5db06f8dc3ea0d88d2c916c427ddcf7b40424e', 15, 1, 'auth_token', '[]', 1, '2023-01-08 12:00:13', '2023-01-08 12:02:07', '2024-01-08 14:00:13'),
-('394d907f474a22e97882be3cdef68b5ca68bf442674f240b75c147ca72ef14b754c2cb34a6fc46cc', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:31:07', '2022-12-22 08:31:51', '2023-12-22 10:31:07'),
-('4767e56e90754c09fdf298bfbaee9fdad183d83a229f8e4dfb551639d1a9a090e725e26d098433ac', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:35:51', '2022-12-22 08:36:21', '2023-12-22 10:35:51'),
-('4dddbfbaa88d7c71b0bebffe3ce3743fb3406e5a10c4ba1b030b64fba014416d676ad1550424be74', 1, 1, 'auth_token', '[]', 0, '2023-01-07 16:41:20', '2023-01-07 16:41:20', '2024-01-07 18:41:20'),
-('503aca7940684a73cd6bbb2e267e78844d57857d7ba947bc20a27f47bb4a5837d36bff78c0216d00', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:14:46', '2022-12-24 22:14:46', '2023-12-25 00:14:46'),
-('59a32babc5ad466e42e54e4d90992e0c132bfc51230a9c3174384077ff6b0557988874a454ce308c', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:15:18', '2022-12-22 08:15:29', '2023-12-22 10:15:18'),
-('69f7a3f8df214b7c6c76057f68e69f7fd622e2b6a95e0814f4e92634562a592a2b1faac32cf6efb0', 1, 1, 'auth_token', '[]', 1, '2023-01-08 11:56:24', '2023-01-08 11:59:24', '2024-01-08 13:56:24'),
-('7144dfcbbdcaf1eb44d71a12f796bb548a17fc3c1c063646a4e8ff0e7dde02ba54a9bb65e661c34f', 1, 1, 'auth_token', '[]', 0, '2022-12-24 21:50:24', '2022-12-24 21:50:24', '2023-12-24 23:50:24'),
-('7491c3c755571f68d54a8c6d640e239ee5501af27ed32a1fb84ad4e3ec59db791db1d25ebd06cba6', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:18:05', '2022-12-24 22:18:05', '2023-12-25 00:18:05'),
-('7b1b5973d735141a5e4ba9c011e7626190e31685a96503f8993deedf4adc88eba5231ca02d52b58f', 1, 1, 'auth_token', '[]', 1, '2023-01-08 10:36:38', '2023-01-08 11:09:56', '2024-01-08 12:36:38'),
-('7d9d9b3a306d522b30c7f456c7ddc3e8f7e82e18c05c61d55e29b1e7af6965e9d15348d83aebfd84', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:14:38', '2022-12-24 22:14:38', '2023-12-25 00:14:38'),
-('87ac1d7fd848a59a46adff422eb66fe5cecb0276e30c363171f885a454c37ff901545d28ce9da99c', 15, 1, 'auth_token', '[]', 1, '2023-01-08 11:14:22', '2023-01-08 11:52:33', '2024-01-08 13:14:22'),
-('95fea9816e59c9a5c6d5f2d8fb3d641b8ae19837989558aec99f806225d2e74efa86851316f05bdb', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:49:07', '2022-12-22 08:49:10', '2023-12-22 10:49:07'),
-('965e57fc967ade690068502b029f70296b9e2d39c68fff0a35ab5ee4c92ae75f1b21ab840039e274', 1, 1, 'auth_token', '[]', 0, '2022-12-22 09:03:21', '2022-12-22 09:03:21', '2023-12-22 11:03:21'),
-('9a40f3cc6523d15fc015102a7eafc1970ff93dc7bc241efe65f027c69558f2941f4c08e291e7c94c', 1, 1, 'auth_token', '[]', 0, '2022-12-22 08:36:23', '2022-12-22 08:36:23', '2023-12-22 10:36:23'),
-('9c7a50971ad1ea94b40b6b169408d3666bb001d82e2669e6e312ff4c0f37a3da06b1f8cfe3fa14cf', 1, 1, 'auth_token', '[]', 0, '2022-12-22 08:57:23', '2022-12-22 08:57:23', '2023-12-22 10:57:23'),
-('a4f1d7ba14d071c94bf7fde31290881a3f4ada678659cfd6972e7afa0b548b5b6314c1e2933a8e69', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:11:20', '2022-12-24 22:11:20', '2023-12-25 00:11:20'),
-('a4f903a85d3b1cdb49f675041ba639a8477e016d3e76b03ac49d270f770a236b44863730addb5b18', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:14:58', '2022-12-24 22:14:58', '2023-12-25 00:14:58'),
-('ac17a6b4dd292975e5cc9a8516194196aab433e3b8b2cb98184486d629b42149f18c2269859ba76e', 1, 1, 'auth_token', '[]', 0, '2022-12-21 17:09:52', '2022-12-21 17:09:52', '2023-12-21 19:09:52'),
-('ace830471b823041dcfff27f30fa1738f5f234e1308383845ad4ef4b50a24a13db1fbdf3e163b242', 12, 1, 'auth_token', '[]', 1, '2022-12-22 08:54:28', '2022-12-22 08:57:21', '2023-12-22 10:54:28'),
-('ad34599b34fa5e112ac941d2a6fa317f2b5f0b6fa7a751d6b0e9bf0b8dd0053b5216ca40cb0934c3', 1, 1, 'auth_token', '[]', 1, '2023-01-08 12:02:17', '2023-01-08 12:03:07', '2024-01-08 14:02:17'),
-('b794bf300d65b459d314eacd4f7823ed54e51fbcab17330e36f1ddd5ef4148e96284f7ceda6465b4', 15, 1, 'auth_token', '[]', 0, '2023-01-08 12:03:20', '2023-01-08 12:03:20', '2024-01-08 14:03:20'),
-('cc62c07f125784da9f58746353806130f1cf4fe7bdaad2c10bc6756175deb1079b1bed2e6b753d16', 1, 1, 'auth_token', '[]', 0, '2022-12-23 10:10:46', '2022-12-23 10:10:46', '2023-12-23 12:10:46'),
-('d581a6e93c9501bc3722f20854ad8793402c79c8453fbe2fb774a0b89f6438a8310a31f921c7b3f1', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:18:00', '2022-12-22 08:23:57', '2023-12-22 10:18:00'),
-('d7e0bc4fcf3d68a3592c593576a2ed7bfcf46405dfc58aa8a0b002201c68980f463a057a2dca6b3b', 1, 1, 'auth_token', '[]', 0, '2023-01-08 12:02:17', '2023-01-08 12:02:17', '2024-01-08 14:02:17'),
-('d85e2c224be6ebdde8e38a8e04efc3eac8ca44e46e41766128ac13f8220b629848117f8be66c04ee', 1, 1, 'auth_token', '[]', 0, '2022-12-29 22:31:32', '2022-12-29 22:31:32', '2023-12-30 00:31:32'),
-('ee0d338fea5bc75d34e6292d56c35de7eade0c224a944fa30f8e8c359200d61709e2302de3f30df4', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:13:47', '2022-12-24 22:13:48', '2023-12-25 00:13:47'),
-('ee6742314c5aed325690dfaee1fd48c929ffefae52e3dc9908a0015fe44cf53c234dd7b59a0ec159', 2, 1, 'auth_token', '[]', 0, '2022-12-21 17:27:34', '2022-12-21 17:27:34', '2023-12-21 19:27:34'),
-('f5c92d34113e2850c61c67c6b41e83e1b6986e356420d733261b77be94342eb8a8c73227cf756b79', 1, 1, 'auth_token', '[]', 0, '2022-12-24 22:11:42', '2022-12-24 22:11:42', '2023-12-25 00:11:42'),
-('f8976d68b431a834e194330a09e87b0f868c9e883d85624e73cc482801cf649ea79b112c362bde22', 1, 1, 'auth_token', '[]', 0, '2023-01-08 11:54:45', '2023-01-08 11:54:45', '2024-01-08 13:54:45'),
-('fe821f238ced911e76f9c4860a9ec6ce1072310981fcedd1feda3a8c1af5c8e52a7bd89b6b1ddda7', 1, 1, 'auth_token', '[]', 1, '2022-12-22 08:52:13', '2022-12-22 08:54:26', '2023-12-22 10:52:13');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oauth_auth_codes`
---
-
-CREATE TABLE `oauth_auth_codes` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `client_id` bigint(20) UNSIGNED NOT NULL,
-  `scopes` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `expires_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oauth_clients`
---
-
-CREATE TABLE `oauth_clients` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED DEFAULT NULL,
-  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `secret` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `provider` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `redirect` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `personal_access_client` tinyint(1) NOT NULL,
-  `password_client` tinyint(1) NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `oauth_clients`
---
-
-INSERT INTO `oauth_clients` (`id`, `user_id`, `name`, `secret`, `provider`, `redirect`, `personal_access_client`, `password_client`, `revoked`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'Client', 'IumWjlZFC60DsGr9xoXw3syZQIFkAT0Kvj4v22mr', NULL, 'http://localhost', 1, 0, 0, '2022-12-21 17:09:25', '2022-12-21 17:09:25');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oauth_personal_access_clients`
---
-
-CREATE TABLE `oauth_personal_access_clients` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `client_id` bigint(20) UNSIGNED NOT NULL,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `oauth_personal_access_clients`
---
-
-INSERT INTO `oauth_personal_access_clients` (`id`, `client_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2022-12-21 17:09:25', '2022-12-21 17:09:25');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `oauth_refresh_tokens`
---
-
-CREATE TABLE `oauth_refresh_tokens` (
-  `id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `access_token_id` varchar(100) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `revoked` tinyint(1) NOT NULL,
-  `expires_at` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2022_11_29_114029_create_categories_table', 1),
+(6, '2022_11_29_114030_create_experts_table', 1),
+(7, '2022_11_29_121211_create_experiences_table', 1),
+(8, '2022_11_29_123549_create_schedules_table', 1),
+(9, '2022_11_30_141742_create_favourites_table', 1),
+(10, '2022_11_30_174805_create_ratings_table', 1),
+(11, '2022_12_04_093847_create_appointments_table', 1),
+(12, '2022_12_21_164743_create_messages_table', 1),
+(13, '2022_12_22_094335_create_client_wallets_table', 1),
+(14, '2023_02_10_125244_create_expert_wallets_table', 1),
+(15, '2023_02_11_124611_create_sections_table', 1);
 
 -- --------------------------------------------------------
 
@@ -417,13 +251,6 @@ CREATE TABLE `ratings` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `ratings`
---
-
-INSERT INTO `ratings` (`id`, `expert_id`, `user_id`, `starsNumber`, `created_at`, `updated_at`) VALUES
-(3, 13, 1, 1.00, '2023-01-08 11:11:45', '2023-01-08 11:57:05');
-
 -- --------------------------------------------------------
 
 --
@@ -441,39 +268,27 @@ CREATE TABLE `schedules` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `schedules`
+-- Table structure for table `sections`
 --
 
-INSERT INTO `schedules` (`id`, `expert_id`, `isAvailable`, `day`, `start`, `end`, `created_at`, `updated_at`) VALUES
-(50, 13, 0, 'Sat', NULL, NULL, '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(51, 13, 1, 'Sun', '10:30:00', '15:00:00', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(52, 13, 1, 'Mon', '10:30:00', '15:00:00', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(53, 13, 1, 'Tue', '10:30:00', '15:00:00', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(54, 13, 1, 'Wed', '10:30:00', '15:00:00', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(55, 13, 1, 'Thu', '10:30:00', '15:00:00', '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(56, 13, 0, 'Fri', NULL, NULL, '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(57, 14, 0, 'Sat', NULL, NULL, '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(58, 14, 1, 'Sun', '10:30:00', '15:00:00', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(59, 14, 1, 'Mon', '10:30:00', '15:00:00', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(60, 14, 1, 'Tue', '10:30:00', '15:00:00', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(61, 14, 1, 'Wed', '10:30:00', '15:00:00', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(62, 14, 1, 'Thu', '10:30:00', '15:00:00', '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(63, 14, 0, 'Fri', NULL, NULL, '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(64, 15, 0, 'Sat', NULL, NULL, '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(65, 15, 1, 'Sun', '10:30:00', '15:00:00', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(66, 15, 1, 'Mon', '10:30:00', '15:00:00', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(67, 15, 1, 'Tue', '10:30:00', '15:00:00', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(68, 15, 1, 'Wed', '10:30:00', '15:00:00', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(69, 15, 1, 'Thu', '10:30:00', '15:00:00', '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(70, 15, 0, 'Fri', NULL, NULL, '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(71, 16, 0, 'Sat', NULL, NULL, '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(72, 16, 1, 'Sun', '10:30:00', '15:00:00', '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(73, 16, 1, 'Mon', '10:30:00', '15:00:00', '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(74, 16, 1, 'Tue', '10:30:00', '15:00:00', '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(75, 16, 1, 'Wed', '10:30:00', '15:00:00', '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(76, 16, 1, 'Thu', '10:30:00', '15:00:00', '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(77, 16, 0, 'Fri', NULL, NULL, '2022-12-23 10:10:30', '2022-12-23 10:10:30');
+CREATE TABLE `sections` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `sectionName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `imagePath` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `sections`
+--
+
+INSERT INTO `sections` (`id`, `category_id`, `sectionName`, `imagePath`) VALUES
+(1, 1, 'C++', NULL),
+(2, 1, 'Java', NULL),
+(3, 1, 'JavaScript', NULL);
 
 -- --------------------------------------------------------
 
@@ -484,9 +299,8 @@ INSERT INTO `schedules` (`id`, `expert_id`, `isAvailable`, `day`, `start`, `end`
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `local` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'en',
-  `isExpert` tinyint(1) NOT NULL DEFAULT 0,
   `userName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
   `imagePath` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email_verified_at` timestamp NULL DEFAULT NULL,
@@ -500,39 +314,8 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `local`, `isExpert`, `userName`, `mobile`, `imagePath`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'en', 0, 'client', '0933333333', 'assets/image/expert2.png', 'client@gmail.com', NULL, '$2y$10$xmC1OVqJGytJPGbNiaZX/.bm9wZSyApXnTQm8gSPHukkGiPtWrrRa', NULL, '2022-12-21 17:08:40', '2023-01-08 11:59:45'),
-(15, 'en', 1, 'Moaaz', '0935644682', 'assets/expert_image/real/moaaz11.jpg', 'Moaaz@gmail.com', NULL, '$2y$10$gDXbz7kEVwOcGrGtTG.TvuIShSWAzdBHJsJCViGBIqk6RTw2iyAli', NULL, '2022-12-23 10:08:02', '2022-12-23 10:08:02'),
-(16, 'en', 1, 'Mahmoud', '0935644682', 'assets/expert_image/real/mahmoudArefi.jpg', 'Mahmoud@gmail.com', NULL, '$2y$10$guf28ocge531vysokPoHourBO1vcbuQWTZklIHefZBzb2VgOzqRLC', NULL, '2022-12-23 10:09:36', '2022-12-23 10:09:36'),
-(17, 'en', 1, 'Ammar', '0935644682', 'assets/expert_image/real/ammar.jpg', 'Ammar@gmail.com', NULL, '$2y$10$.aTo01Jo9UV90oktPftfaezkmcCcg5vtO9jRNwaz8lLb07Dr.gsCG', NULL, '2022-12-23 10:10:13', '2022-12-23 10:10:13'),
-(18, 'en', 1, 'Dania', '0935644682', 'assets/expert_image/expert (8).jpg', 'Dania@gmail.com', NULL, '$2y$10$.X.SboYJEMpSawuAOd6ZlORiQYH5dHEacefiLEuC1HG8BkRRIkhlS', NULL, '2022-12-23 10:10:30', '2022-12-23 10:10:30'),
-(21, 'en', 0, 'client2', '0935644682', NULL, 'client2@gmail.com', NULL, '$2y$10$ikrlthwpNnKcwcxh14YRFeN1ERgA0FmZFgxhq6ufQkxPRnSZ2AdHu', NULL, '2022-12-23 10:41:51', '2022-12-23 10:41:51');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `wallets`
---
-
-CREATE TABLE `wallets` (
-  `id` bigint(20) UNSIGNED NOT NULL,
-  `user_id` bigint(20) UNSIGNED NOT NULL,
-  `total` double(8,2) NOT NULL DEFAULT 0.00,
-  `created_at` timestamp NULL DEFAULT NULL,
-  `updated_at` timestamp NULL DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `wallets`
---
-
-INSERT INTO `wallets` (`id`, `user_id`, `total`, `created_at`, `updated_at`) VALUES
-(1, 21, 5000.00, '2022-12-23 10:41:51', '2022-12-23 10:41:51'),
-(2, 1, 4700.00, '2022-12-23 12:42:03', '2023-01-08 11:59:57'),
-(3, 17, 5000.00, '2022-12-23 12:51:17', NULL),
-(4, 18, 5000.00, '2022-12-23 12:51:23', NULL),
-(5, 16, 5000.00, '2022-12-23 12:51:31', NULL),
-(6, 15, 5300.00, '2022-12-23 12:51:41', '2023-01-08 11:59:57');
+INSERT INTO `users` (`id`, `local`, `userName`, `mobile`, `imagePath`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'en', 'Client', '0999999999', NULL, 'Client@gmail.com', NULL, '$2y$10$rVm04Wa98AUvJaIym5Nlou/TfF.EF3hgFnArqfVu.QU1YnFOw3Epi', NULL, '2023-02-11 11:09:19', '2023-02-11 11:09:19');
 
 --
 -- Indexes for dumped tables
@@ -553,6 +336,13 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `client_wallets`
+--
+ALTER TABLE `client_wallets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `client_wallets_user_id_foreign` (`user_id`);
+
+--
 -- Indexes for table `experiences`
 --
 ALTER TABLE `experiences`
@@ -564,8 +354,15 @@ ALTER TABLE `experiences`
 --
 ALTER TABLE `experts`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `experts_user_id_foreign` (`user_id`),
+  ADD UNIQUE KEY `experts_email_unique` (`email`),
   ADD KEY `experts_category_id_foreign` (`category_id`);
+
+--
+-- Indexes for table `expert_wallets`
+--
+ALTER TABLE `expert_wallets`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `expert_wallets_expert_id_foreign` (`expert_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -592,40 +389,6 @@ ALTER TABLE `messages`
 --
 ALTER TABLE `migrations`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `oauth_access_tokens`
---
-ALTER TABLE `oauth_access_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `oauth_access_tokens_user_id_index` (`user_id`);
-
---
--- Indexes for table `oauth_auth_codes`
---
-ALTER TABLE `oauth_auth_codes`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `oauth_auth_codes_user_id_index` (`user_id`);
-
---
--- Indexes for table `oauth_clients`
---
-ALTER TABLE `oauth_clients`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `oauth_clients_user_id_index` (`user_id`);
-
---
--- Indexes for table `oauth_personal_access_clients`
---
-ALTER TABLE `oauth_personal_access_clients`
-  ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `oauth_refresh_tokens`
---
-ALTER TABLE `oauth_refresh_tokens`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `oauth_refresh_tokens_access_token_id_index` (`access_token_id`);
 
 --
 -- Indexes for table `password_resets`
@@ -656,18 +419,18 @@ ALTER TABLE `schedules`
   ADD KEY `schedules_expert_id_foreign` (`expert_id`);
 
 --
+-- Indexes for table `sections`
+--
+ALTER TABLE `sections`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `sections_category_id_foreign` (`category_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `users_email_unique` (`email`);
-
---
--- Indexes for table `wallets`
---
-ALTER TABLE `wallets`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `wallets_user_id_foreign` (`user_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -677,25 +440,37 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `client_wallets`
+--
+ALTER TABLE `client_wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `experiences`
 --
 ALTER TABLE `experiences`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `experts`
 --
 ALTER TABLE `experts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `expert_wallets`
+--
+ALTER TABLE `expert_wallets`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -707,31 +482,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `favourites`
 --
 ALTER TABLE `favourites`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `messages`
 --
 ALTER TABLE `messages`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
-
---
--- AUTO_INCREMENT for table `oauth_clients`
---
-ALTER TABLE `oauth_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `oauth_personal_access_clients`
---
-ALTER TABLE `oauth_personal_access_clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -743,25 +506,25 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `ratings`
 --
 ALTER TABLE `ratings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `schedules`
 --
 ALTER TABLE `schedules`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=78;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `sections`
+--
+ALTER TABLE `sections`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
-
---
--- AUTO_INCREMENT for table `wallets`
---
-ALTER TABLE `wallets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
@@ -775,6 +538,12 @@ ALTER TABLE `appointments`
   ADD CONSTRAINT `appointments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `client_wallets`
+--
+ALTER TABLE `client_wallets`
+  ADD CONSTRAINT `client_wallets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `experiences`
 --
 ALTER TABLE `experiences`
@@ -784,8 +553,13 @@ ALTER TABLE `experiences`
 -- Constraints for table `experts`
 --
 ALTER TABLE `experts`
-  ADD CONSTRAINT `experts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `experts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+  ADD CONSTRAINT `experts_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `expert_wallets`
+--
+ALTER TABLE `expert_wallets`
+  ADD CONSTRAINT `expert_wallets_expert_id_foreign` FOREIGN KEY (`expert_id`) REFERENCES `experts` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `favourites`
@@ -806,10 +580,10 @@ ALTER TABLE `schedules`
   ADD CONSTRAINT `schedules_expert_id_foreign` FOREIGN KEY (`expert_id`) REFERENCES `experts` (`id`) ON DELETE CASCADE;
 
 --
--- Constraints for table `wallets`
+-- Constraints for table `sections`
 --
-ALTER TABLE `wallets`
-  ADD CONSTRAINT `wallets_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `sections`
+  ADD CONSTRAINT `sections_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

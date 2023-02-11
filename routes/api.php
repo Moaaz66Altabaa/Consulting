@@ -10,7 +10,6 @@ use App\Http\Controllers\Expert;
 //--------------------PUBLIC--ROUTES-----------------------------------
 Route::post('register' , [Auth\AuthController::class , 'register']);
 Route::post('login' , [Auth\AuthController::class , 'login']);
-Route::post('/index' , [Client\ClientController::class , 'index']);
 
 //-------------------LOG-OUT------------------------------------------
 Route::post('logout' , [Auth\AuthController::class , 'logout'])->middleware(['auth:sanctum']);

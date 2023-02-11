@@ -11,6 +11,9 @@ class Category extends Model
 
     public $timestamps = false;
 
+    public function sections(){
+        return $this->hasMany(Section::class);
+    }
 
     public function experts(){
         return $this->hasMany(Expert::class);

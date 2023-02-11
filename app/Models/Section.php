@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Experience extends Model
+class Section extends Model
 {
     use HasFactory;
 
     public $timestamps = false;
 
-    public function expert(){
-        return $this->belongsTo(Expert::class);
+    public function category(){
+        return $this->belongsTo(Category::class);
     }
 }

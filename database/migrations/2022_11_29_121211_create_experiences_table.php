@@ -19,7 +19,6 @@ return new class extends Migration
             $table->string('experienceName');
             $table->string('experienceBody');
             $table->foreign('expert_id')->references('id')->on('experts')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

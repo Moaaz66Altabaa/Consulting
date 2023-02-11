@@ -35,15 +35,12 @@ class AuthController extends Controller
         $expert->save();
 
         //creating expert's wallet and assigning initial total value
-        $expert->wallet()->create([
-            'expert_id' => $expert->id,
-            'total' => request('total')
-        ]);
+        $expert->wallet()->create();
 
         //looping for adding expert's experience and schedule
         if (request('experience')) {
-//          $experiences = json_decode(\request('experience') , true);
-            $experiences = \request('experience');
+          $experiences = json_decode(\request('experience') , true);
+//            $experiences = \request('experience');
             foreach ($experiences as $experience) {
                 $expert->experiences()->create([
                     'experienceName' => $experience['experienceName'],
@@ -52,8 +49,8 @@ class AuthController extends Controller
             }
         }
 
-//      $schedules = json_decode(\request('schedule') , true);
-        $schedules = \request('schedule');
+      $schedules = json_decode(\request('schedule') , true);
+//        $schedules = \request('schedule');
         foreach ($schedules as $schedule) {
             $expert->schedules()->create([
                 'isAvailable' => $schedule['isAvailable'],
@@ -78,9 +75,7 @@ class AuthController extends Controller
         $user->save();
 
         //creating user's wallet and assigning initial total value
-        $user->wallet()->create([
-            'total' => request('total')
-        ]);
+        $user->wallet()->create();
 
 
         return response()->json([

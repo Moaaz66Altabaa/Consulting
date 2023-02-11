@@ -16,9 +16,12 @@ return new class extends Migration
         Schema::create('client_wallets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->float('total')->default(0);
+            $table->float('total')->default(10000);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
+
+        \App\Models\User::find(1)->wallet()->create(['total' => '10000']);
+
     }
 
     /**

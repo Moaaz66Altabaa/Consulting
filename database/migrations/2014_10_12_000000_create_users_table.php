@@ -25,6 +25,14 @@ return new class extends Migration
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\User::create([
+            'userName' => 'Client',
+            'mobile' => '0999999999',
+            'email' => 'Client@gmail.com',
+            'password' => \Illuminate\Support\Facades\Hash::make('123123123'),
+        ]);
+
     }
 
     /**

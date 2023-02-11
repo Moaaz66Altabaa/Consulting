@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('expert_wallets', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('expert_id');
-            $table->float('total')->default(0);
+            $table->float('total')->default(10000);
             $table->foreign('expert_id')->references('id')->on('experts')->onDelete('cascade');        });
     }
 
