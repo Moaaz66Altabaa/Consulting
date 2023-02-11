@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 02:32 PM
+-- Generation Time: Feb 11, 2023 at 02:40 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.4
 
@@ -67,7 +67,7 @@ INSERT INTO `categories` (`id`, `categoryName`, `imagePath`) VALUES
 CREATE TABLE `client_wallets` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `user_id` bigint(20) UNSIGNED NOT NULL,
-  `total` double(8,2) NOT NULL DEFAULT 0.00
+  `total` double(8,2) NOT NULL DEFAULT 10000.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
@@ -123,7 +123,7 @@ CREATE TABLE `experts` (
 CREATE TABLE `expert_wallets` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `expert_id` bigint(20) UNSIGNED NOT NULL,
-  `total` double(8,2) NOT NULL DEFAULT 0.00
+  `total` double(8,2) NOT NULL DEFAULT 10000.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -315,7 +315,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `local`, `userName`, `mobile`, `imagePath`, `email`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'en', 'Client', '0999999999', NULL, 'Client@gmail.com', NULL, '$2y$10$rVm04Wa98AUvJaIym5Nlou/TfF.EF3hgFnArqfVu.QU1YnFOw3Epi', NULL, '2023-02-11 11:09:19', '2023-02-11 11:09:19');
+(1, 'en', 'Client', '0999999999', NULL, 'Client@gmail.com', NULL, '$2y$10$IRPog8NJis2f4QRrADlK0.zCOEl4TdIUsA.w/iq5IG1Rk1VriuxQe', NULL, '2023-02-11 11:39:35', '2023-02-11 11:39:35');
 
 --
 -- Indexes for dumped tables
