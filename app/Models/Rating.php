@@ -9,7 +9,6 @@ class Rating extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['expert_id' , 'user_id' , 'starsNumber'];
 
     public function expert(){
         return $this->belongsTo(Expert::class);

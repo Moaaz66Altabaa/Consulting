@@ -2,22 +2,22 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Auth;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\Client;
 use App\Http\Controllers\Expert;
 
 //--------------------PUBLIC--ROUTES-----------------------------------
-Route::post('register' , [AuthController::class , 'register']);
-Route::post('login' , [AuthController::class , 'login']);
+Route::post('register' , [Auth\AuthController::class , 'register']);
+Route::post('login' , [Auth\AuthController::class , 'login']);
 Route::post('/index' , [Client\ClientController::class , 'index']);
 
 //-------------------LOG-OUT------------------------------------------
-Route::post('logout' , [AuthController::class , 'logout'])->middleware(['auth:api']);
+Route::post('logout' , [Auth\AuthController::class , 'logout'])->middleware(['auth:sanctum']);
 
 
 //--------------------CLIENT--ROUTES-----------------------------------
-Route::group( ['prefix' => '/client' , 'middleware' => ['auth:api' , 'isClient']] , function() {
+Route::group( ['prefix' => '/client' , 'middleware' => ['auth:sanctum' , 'isClient']] , function() {
     Route::post('/index' , [Client\ClientController::class , 'index']);
     Route::post('/showCategory/{id}' , [Client\ClientController::class , 'showCategory']);
     Route::post('/favourite' , [Client\ClientController::class , 'favourite']);
@@ -32,15 +32,17 @@ Route::group( ['prefix' => '/client' , 'middleware' => ['auth:api' , 'isClient']
 });
 
 //-------------------ROUTES-NEED-TOKENS-ONLY-------------------------
-Route::post('/showProfile/{id}' , [Client\ClientController::class , 'showProfile'])->middleware('auth:api');
-Route::post('/sendMessage/{id}' , [MessagesController::class , 'sendMessage'])->middleware('auth:api');
-Route::post('/showMessages/{id}' , [MessagesController::class , 'showMessages'])->middleware('auth:api');
-Route::post('/showWallet' , [Client\ClientController::class , 'showWallet'])->middleware('auth:api');
-Route::post('/setLocal' , [Client\ClientController::class , 'setLocal'])->middleware('auth:api');
+Route::group(['middleware' => ['auth:sanctum']] , function (){
+    Route::post('/showProfile/{id}' , [Client\ClientController::class , 'showProfile']);
+    Route::post('/sendMessage/{id}' , [MessagesController::class , 'sendMessage']);
+    Route::post('/showMessages/{id}' , [MessagesController::class , 'showMessages']);
+    Route::post('/showWallet' , [Client\ClientController::class , 'showWallet']);
+    Route::post('/setLocal' , [Client\ClientController::class , 'setLocal']);
+});
 
 
 //--------------------EXPERT--ROUTES-----------------------------------
-Route::group( ['prefix' => '/expert' , 'middleware' => ['auth:api' , 'isExpert']] , function() {
+Route::group( ['prefix' => '/expert' , 'middleware' => ['auth:sanctum' , 'isExpert']] , function() {
     Route::post('/showAppointments' , [Expert\ExpertController::class , 'showAppointments']);
     Route::post('/showProfile' , [Expert\ExpertController::class , 'showProfile']);
     Route::post('/updateProfile' , [Expert\ExpertController::class , 'updateProfile']);

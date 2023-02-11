@@ -6,22 +6,12 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Passport\HasApiTokens;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
-
-    protected $fillable = [
-        'local',
-        'isExpert',
-        'userName',
-        'mobile',
-        'imagePath',
-        'email',
-        'password',
-    ];
 
     protected $hidden = [
         'password',
@@ -33,9 +23,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function expert(){
-        return $this->hasOne(Expert::class);
-    }
 
     public function favourites(){
         return $this->hasMany(Favourite::class);
@@ -46,7 +33,7 @@ class User extends Authenticatable
     }
 
     public function wallet(){
-        return $this->hasOne(Wallet::class);
+        return $this->hasOne(ClientWallet::class);
     }
 
 }

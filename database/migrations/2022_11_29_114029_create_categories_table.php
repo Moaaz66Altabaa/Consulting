@@ -17,8 +17,11 @@ return new class extends Migration
             $table->id();
             $table->string('categoryName');
             $table->string('imagePath')->nullable();
-            $table->timestamps();
         });
+
+        \App\Models\Category::create(['categoryName' => 'Programming']);
+        \App\Models\Category::create(['categoryName' => 'Health']);
+        \App\Models\Category::create(['categoryName' => 'Engineering']);
     }
 
     /**

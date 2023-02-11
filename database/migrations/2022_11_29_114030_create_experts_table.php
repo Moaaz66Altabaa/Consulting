@@ -15,13 +15,20 @@ return new class extends Migration
     {
         Schema::create('experts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
+            $table->string('local')->default('en');
+            $table->string('userName');
+            $table->string('mobile' , 10);
+            $table->string('imagePath')->nullable();
             $table->unsignedBigInteger('category_id');
             $table->string('expertDescription');
             $table->float('hourPrice');
             $table->float('rate')->default(0);
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+
             $table->timestamps();
         });
     }

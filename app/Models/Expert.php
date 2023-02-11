@@ -4,16 +4,27 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Expert extends Model
+
+class Expert extends Authenticatable
 {
-    use HasFactory;
+    use HasApiTokens, HasFactory, Notifiable;
 
-    protected $fillable = ['user_id' , 'category_id' , 'expertDescription' , 'hourPrice' , 'rate'];
+    protected $guard = 'experts_api';
 
-    public function user(){
-        return $this->belongsTo(User::class);
-    }
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+    ];
+
 
     public function category(){
         return $this->belongsTo(Category::class);
@@ -33,6 +44,10 @@ class Expert extends Model
 
     public function appointments(){
         return $this->hasMany(Appointment::class);
+    }
+
+    public function wallet(){
+        return $this->hasOne(ExpertWallet::class);
     }
 
 }

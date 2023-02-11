@@ -10,6 +10,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -18,7 +19,7 @@ class ExpertController extends Controller
 
     public function showAppointments()
     {
-        $expert = auth()->user()->expert;
+        $expert = Auth::guard('experts')->user();
         $date = Carbon::parse(request('date'));
         if ($date->lt(now()->format('Y-m-d'))) {
             return response()->json([

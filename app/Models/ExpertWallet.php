@@ -5,12 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Favourite extends Model
+class ExpertWallet extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
 
-    public function user(){
-        return $this->belongsTo(User::class);
+    public function expert(){
+        return $this->belongsTo(Expert::class);
     }
 }

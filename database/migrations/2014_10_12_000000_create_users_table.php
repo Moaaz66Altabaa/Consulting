@@ -16,9 +16,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('local')->default('en');
-            $table->boolean('isExpert')->default(false);
             $table->string('userName');
-            $table->string('mobile');
+            $table->string('mobile' , 10);
             $table->string('imagePath')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

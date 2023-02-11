@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
-        'api' => [
-            'driver' => 'passport',
-            'provider' => 'users',
+        'experts' => [
+            'driver' => 'session',
+            'provider' => 'experts',
         ],
     ],
 
@@ -69,10 +69,10 @@ return [
             'model' => App\Models\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+         'experts' => [
+             'driver' => 'eloquent',
+             'model' => App\Models\Expert::class,
+         ],
     ],
 
     /*
@@ -97,6 +97,12 @@ return [
             'expire' => 60,
             'throttle' => 60,
         ],
+        'experts' => [
+            'provider' => 'experts',
+            'table' => 'password_resets',
+            'expire' => 60,
+            'throttle' => 60,
+        ]
     ],
 
     /*

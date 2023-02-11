@@ -9,7 +9,8 @@ class Category extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['categoryName' , 'imagePath'];
+    public $timestamps = false;
+
 
     public function experts(){
         return $this->hasMany(Expert::class);
