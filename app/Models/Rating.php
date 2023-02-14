@@ -9,6 +9,7 @@ class Rating extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
 
     public function expert(){
         return $this->belongsTo(Expert::class);

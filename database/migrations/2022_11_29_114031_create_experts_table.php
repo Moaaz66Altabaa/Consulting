@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('userName');
             $table->string('mobile' , 10);
             $table->string('imagePath')->nullable();
-            $table->unsignedBigInteger('category_id');
+            $table->unsignedBigInteger('section_id');
             $table->string('expertDescription');
             $table->float('hourPrice');
             $table->float('rate')->default(0);
@@ -27,7 +27,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreign('section_id')->references('id')->on('sections')->onDelete('cascade');
 
             $table->timestamps();
         });

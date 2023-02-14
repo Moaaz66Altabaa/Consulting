@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('local')->default('en');
             $table->string('userName');
-            $table->string('mobile' , 10);
+            $table->string('mobile' , 10)->nullable();
             $table->string('imagePath')->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();

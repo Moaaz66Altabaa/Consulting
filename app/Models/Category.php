@@ -15,7 +15,4 @@ class Category extends Model
         return $this->hasMany(Section::class);
     }
 
-    public function experts(){
-        return $this->hasMany(Expert::class);
-    }
 }

@@ -21,7 +21,6 @@ return new class extends Migration
             $table->time('start')->nullable();
             $table->time('end')->nullable();
             $table->foreign('expert_id')->references('id')->on('experts')->onDelete('cascade');
-            $table->timestamps();
         });
     }
 

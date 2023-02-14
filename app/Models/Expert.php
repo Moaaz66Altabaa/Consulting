@@ -26,8 +26,8 @@ class Expert extends Authenticatable
     ];
 
 
-    public function category(){
-        return $this->belongsTo(Category::class);
+    public function section(){
+        return $this->belongsTo(Section::class);
     }
 
     public function experiences(){

@@ -39,8 +39,8 @@ class AuthController extends Controller
 
         //looping for adding expert's experience and schedule
         if (request('experience')) {
-          $experiences = json_decode(\request('experience') , true);
-//            $experiences = \request('experience');
+//          $experiences = json_decode(\request('experience') , true);
+            $experiences = \request('experience');
             foreach ($experiences as $experience) {
                 $expert->experiences()->create([
                     'experienceName' => $experience['experienceName'],
@@ -49,8 +49,8 @@ class AuthController extends Controller
             }
         }
 
-      $schedules = json_decode(\request('schedule') , true);
-//        $schedules = \request('schedule');
+//      $schedules = json_decode(\request('schedule') , true);
+        $schedules = \request('schedule');
         foreach ($schedules as $schedule) {
             $expert->schedules()->create([
                 'isAvailable' => $schedule['isAvailable'],
@@ -185,7 +185,7 @@ class AuthController extends Controller
             'local' => ['string' , 'in:en,ar'],
             'userName' => ['required', 'string ', 'max:30'],
             'email' => ['required', 'email', 'unique:users' , 'unique:experts'],
-            'mobile' => ['required', 'string' , 'max:13'],
+            'mobile' => ['string' , 'max:13'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
@@ -197,7 +197,7 @@ class AuthController extends Controller
             'email' => ['required', 'email', 'unique:users' , 'unique:experts'],
             'mobile' => ['required', 'string' , 'max:13'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'category_id' => ['required' , 'exists:categories,id'],
+            'section_id' => ['required' , 'exists:sections,id'],
             'hourPrice' => ['required' , 'string'],
             'expertDescription' => ['required' , 'string'],
 //            'experience' => ['string'],
