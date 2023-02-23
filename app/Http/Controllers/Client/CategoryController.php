@@ -32,6 +32,8 @@ class CategoryController extends Controller
                 'userName' => $expert->userName,
                 'imagePath' => $expert->imagePath,
                 'rate' => $expert->rate,
+                'categoryName' => $expert->section->category->categoryName,
+                'sectionName' => $expert->section->sectionName,
                 'isFavourite' => auth()->user()->favourites()->where('expert_id' , $expert->id)->first() ? 1 : 0
             ]);
         }

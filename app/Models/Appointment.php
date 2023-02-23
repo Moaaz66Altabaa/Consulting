@@ -9,13 +9,11 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id' , 'expert_id' , 'from' , 'to'];
-
-    public function users(){
+    public function user(){
         return $this->belongsTo(User::class);
     }
 
-    public function experts(){
+    public function expert(){
         return $this->belongsTo(Expert::class);
     }
 }

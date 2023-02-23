@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('mobile' , 10)->nullable();
             $table->string('imagePath')->nullable();
             $table->string('email')->unique();
+            $table->string('timezone');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
@@ -30,6 +31,7 @@ return new class extends Migration
             'userName' => 'Client',
             'mobile' => '0999999999',
             'email' => 'Client@gmail.com',
+            'timezone' => 'Asia/Beirut',
             'password' => \Illuminate\Support\Facades\Hash::make('123123123'),
         ]);
 

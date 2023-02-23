@@ -5,11 +5,27 @@ namespace App\Http\Controllers;
 use App\Models\Expert;
 use App\Models\Message;
 use App\Models\User;
+use Google\Cloud\Firestore\FirestoreClient;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 
 class MessagesController extends Controller
 {
+    public function FirestoreInsert(){
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public function sendMessage($id){
         $user = auth()->user();
 

@@ -21,12 +21,14 @@ class SectionController extends Controller
         }
 
         $results = new Collection();
-        foreach ($section->experts as $expert){
+        foreach ($section->experts()->orderBy('rate' , 'DESC')->get() as $expert){
             $results->add([
                 'id' => $expert->id,
                 'userName' => $expert->userName,
                 'imagePath' => $expert->imagePath,
                 'rate' => $expert->rate,
+                'expertDescription' => $expert->expertDescription,
+                'hourPrice' => $expert->hourPrice,
                 'isFavourite' => auth()->user()->favourites()->where('expert_id' , $expert->id)->first() ? 1 : 0
             ]);
         }

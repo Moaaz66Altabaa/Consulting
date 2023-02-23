@@ -6,7 +6,9 @@ use App\Http\Controllers\Auth;
 use App\Http\Controllers\MessagesController;
 use App\Http\Controllers\Client;
 use App\Http\Controllers\Expert;
+use App\Http\Controllers\JointController;
 use Illuminate\Support\Facades\Http;
+use Google\Cloud\Firestore\FirestoreClient;
 
 //--------------------PUBLIC--ROUTES-----------------------------------
 Route::post('register' , [Auth\AuthController::class , 'register']);
@@ -27,47 +29,45 @@ Route::group( ['prefix' => '/client' , 'middleware' => ['auth:sanctum' , 'isClie
     Route::post('/showExpert/{id}' , [Client\ExpertsController::class , 'showExpert']);
     Route::post('/rateExpert/{id}' , [Client\RateController::class , 'rateExpert']);
     Route::post('/setFavourite/{id}' , [Client\FavouriteController::class , 'setFavourite']);
-    Route::post('/showAppointments/{id}' , [Client\ClientController::class , 'showAppointments']);
-    Route::post('/addAppointment/{id}' , [Client\ClientController::class , 'addAppointment']);
+    Route::post('/showAppointments/{id}' , [Client\AppointmentController::class , 'showAppointments']);
+    Route::post('/addAppointment/{id}' , [Client\AppointmentController::class , 'addAppointment']);
     Route::post('/updateProfile' , [Client\ProfileController::class , 'updateProfile']);
 
 });
 
 //-------------------ROUTES-NEED-TOKENS-ONLY-------------------------
 Route::group(['middleware' => ['auth:sanctum']] , function (){
-    Route::post('/showProfile/{id}' , [Client\ClientController::class , 'showProfile']);
+    Route::post('/showProfile/{id}' , [JointController::class , 'showProfile']);
     Route::post('/sendMessage/{id}' , [MessagesController::class , 'sendMessage']);
     Route::post('/showMessages/{id}' , [MessagesController::class , 'showMessages']);
-    Route::post('/showWallet' , [Client\ClientController::class , 'showWallet']);
-    Route::post('/setLocal' , [Client\ClientController::class , 'setLocal']);
+    Route::post('/showWallet' , [JointController::class , 'showWallet']);
+    Route::post('/setLocal' , [JointController::class , 'setLocal']);
 });
 
 
 //--------------------EXPERT--ROUTES-----------------------------------
 Route::group( ['prefix' => '/expert' , 'middleware' => ['auth:sanctum' , 'isExpert']] , function() {
-    Route::post('/showAppointments' , [Expert\ExpertController::class , 'showAppointments']);
-    Route::post('/showProfile' , [Expert\ExpertController::class , 'showProfile']);
-    Route::post('/updateProfile' , [Expert\ExpertController::class , 'updateProfile']);
+    Route::post('/showAppointments' , [Expert\AppointmentController::class , 'showAppointments']);
+    Route::post('/showProfile' , [Expert\ProfileController::class , 'showProfile']);
+    Route::post('/updateProfile' , [Expert\ProfileController::class , 'updateProfile']);
 
 });
 
 //------testing---------------------
 
-Route::post('send' , function (){
-    $token = env('FCM_SERVER_KEY');
-   $response = Http::acceptJson()->withToken($token)->post(
-       'https://fcm.googleapis.com/fcm/send',
-       [
-           'to' => '3|xyQrnjIxsf75NNxGvcng1z8sDFWD0PbD3H0WDC7s',
-           'notification' => [
-               'title' => 'hello',
-               'body' => 'this is just a test'
-           ]
-       ]
-   );
-
-   return $response;
-});
-
+//Route::post('send' , function (){
+//
+//    $db = new FirestoreClient([
+//        'projectId' => 'consulting-984a5'
+//    ]);
+//
+//    $documentId = 1;
+//    $messages = $db->collection('messages')->documents();
+//    foreach ($messages as $message){
+//        return $message['body'];
+//    }
+//
+//
+//});
 
 
